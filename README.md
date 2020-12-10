@@ -1,5 +1,5 @@
 # vue-keeper-typescript
-A Google Keeper clone with VueJS, TypeScript and Vuetify
+A Google Keeper clone with VueJS, TypeScript, Vuetify and Firebase
 
 ## Project setup
 ```
