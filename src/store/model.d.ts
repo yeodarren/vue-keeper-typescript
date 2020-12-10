@@ -7,6 +7,12 @@ export interface Note {
     color: string
 }
 
+export interface NewNote {
+    title: string
+    content: string
+    color: string
+}
+
 export interface Snackbar {
     open: boolean
     text: string

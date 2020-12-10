@@ -1,22 +1,31 @@
-import { Note, NoteState, RootState } from '@/store/model'
+import { db } from '@/firebase'
+import { NewNote, Note, NoteState, RootState } from '@/store/model'
 
 import { ActionContext } from 'vuex'
 
-export default{
-    addNote(context: ActionContext<NoteState, RootState>, payload: Note){
-        const noteData = {
-            id: new Date().toISOString(),
-            title: payload.title,
-            content: payload.content,
-            color: payload.color
-        }
+export default {
+    async addNote(context: ActionContext<NoteState, RootState>, payload: NewNote){
+        // const noteData = {
+        //     id: new Date().toISOString(),
+        //     title: payload.title,
+        //     content: payload.content,
+        //     color: payload.color
+        // }
 
-        context.commit('addNote', noteData)
+        const data = await db.createNote(payload)
+        context.commit('addNote', data)
     },
-    deleteNote(context: ActionContext<NoteState, RootState>, payload: Note){
+    async deleteNote(context: ActionContext<NoteState, RootState>, payload: Note){
+        await db.deleteNote(payload.id)
         context.commit('deleteNote', payload)
     },
-    updateNote(context: ActionContext<NoteState, RootState>, payload: Note){
-        context.commit('updateNote', payload)
+    async updateNote(context: ActionContext<NoteState, RootState>, payload: Note){
+        const data = await db.updateNote(payload)
+        context.commit('updateNote', data)
+    },
+    async getNotes(context: ActionContext<NoteState, RootState>) {
+        const notes = await db.getNotes()
+        
+        context.commit('setNotes', notes)
     }
 }

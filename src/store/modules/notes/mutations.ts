@@ -15,5 +15,8 @@ export default{
         note!.title = payload.title
         note!.content = payload.content
         note!.color = payload.color
+    },
+    setNotes(state: NoteState, payload: Note[]){
+        return state.notes = payload
     }
 }

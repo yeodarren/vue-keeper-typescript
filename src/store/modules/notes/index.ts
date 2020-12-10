@@ -6,12 +6,7 @@ export default{
     namespaced: true,
     state(){
         return {
-            notes: [{
-                id: '1',
-                title: 'Learn vue',
-                content: 'Create vue apps',
-                color: ''
-            }]
+            notes: []
         }
     },
     actions,

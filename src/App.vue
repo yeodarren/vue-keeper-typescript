@@ -20,7 +20,7 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
+      <v-btn icon @click="refresh" :loading="refreshLoading">
         <v-icon>mdi-refresh</v-icon>
       </v-btn>
     </v-app-bar>
@@ -60,17 +60,24 @@ export default Vue.extend({
 
   data: () => ({
     loading: false,
-    // refreshLoading: false
+    refreshLoading: false
   }),
   methods: {
-    refresh(){
-      // this.loading = true
+    async refresh(){
+      this.refreshLoading = true
+      await this.$store.dispatch('notes/getNotes')
+      this.refreshLoading = false
     }
   },
-  computed:{
+  computed: {
     snackbar(){
       return this.$store.getters['global/showSnackbar']
     }
+  },
+  async created() {
+      this.loading = true
+      await this.$store.dispatch('notes/getNotes')
+      this.loading = false
   }
 });
 </script>
